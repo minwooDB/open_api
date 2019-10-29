@@ -1,0 +1,13 @@
+{% extends 'home/base.html' %}
+
+{% block title %}
+PAPAGO 번역
+{% endblock %}
+
+{% block body %}
+<h1>영어 번역을 원하는 한국어를 입력해주세요.</h1>
+<form action="/utilities/translated/" method="GET">
+번역하고싶은 단어: <input type= "text" name = "text">
+<input type = "submit">
+</form>
+{% endblock %}

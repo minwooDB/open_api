@@ -1,0 +1,18 @@
+{% extends 'home/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}
+            catch practice
+            {% endblock %}</title>
+</head>
+<body>
+    {% block body %}
+        <p>네가 던진 {{ message }}, 그리고 {{message2}}도 잘 받았다.</p>
+    {% endblock %}
+</body>
+</html>
