@@ -1,0 +1,15 @@
+{% extends 'articles/base.html' %}
+
+{% block title %}EDIT{% endblock %}
+
+{% block body %}
+    <h1 class='text-center'>EDIT</h1>
+    <form action='' method = "POST">
+        {% csrf_token %}
+        제목:<input type= 'text' name= 'title' placeholder="{{article.title}}"><br>
+        내용:<textarea name= 'content' id = '' cols= "30" lows = "10" >{{article.content}}</textarea><br>
+        <input type = 'submit'>
+    </form>
+    <hr>
+    <a href='/articles/'>취소하기</a>
+{% endblock %}

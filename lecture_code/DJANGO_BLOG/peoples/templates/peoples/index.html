@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/peoples/create/">
+        <button>임의 사람 추가하기</button>
+    </form>
+    {% for people in peoples%}
+        <a href="">
+        <div style="background-color: aqua; display: inline-block; border: 1px solid red;">
+            <p>No. {{people.pk}}</p>
+            <p>이름 : {{people.name}}</p>
+            <p>직업 : {{people.job}}</p>
+            <p>주소 : {{people.address}}</p>
+            <form action="/peoples/delete/{{people.pk}}/">
+                <button>삭제하기</button>
+            </form>
+        </div>
+        </a>
+    {% endfor %}
+</body>
+</html>
