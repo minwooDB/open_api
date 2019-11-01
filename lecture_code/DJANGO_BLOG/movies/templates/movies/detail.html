@@ -1,0 +1,23 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}영화상세정보{% endblock %}
+
+{% block body %}
+<h1 class = 'text-center'>영화상세정보</h1>
+<h2>{{Movie.title}}({{Movie.title_en}})</h2>
+<hr>
+누적관객수:{{Movie.audience}}<br>
+개봉일자:{{Movie.open_date}}<br>
+장르:{{Movie.genre}}<br>
+평점:{{Movie.socre}}<br>
+포스터 주소:{{Movie.poster_url}}<br>
+영화소개:{{Movie.poster_url}}<br>
+내용:{{Movie.description}}<br>
+<hr>
+<a href="/movies/">목록</a>
+<a href="/movies/edit/{{ Movie.pk }}">수정</a>
+<form action="/movies/delete/{{ Movie.pk }}/" method="POST">
+    {% csrf_token %}
+    <button>삭제</button>
+</form>
+{% endblock %}
