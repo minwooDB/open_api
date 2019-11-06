@@ -4,10 +4,11 @@
 
 {% block body %}
     <h1 class='text-center'>NEW</h1>
-    <form action='' method = "POST">
+    <form action='' method = "POST" enctype="multipart/form-data">
         {% csrf_token %}
         제목:<input type= 'text' name= 'title'><br>
         내용:<input type = 'textarea'  name= 'content' id = '' col= 30 low = 10 ><br>
+        이미지: <input type = "file" name = "image" accept = "image/">
         <input type = 'submit'>
 
     </form>

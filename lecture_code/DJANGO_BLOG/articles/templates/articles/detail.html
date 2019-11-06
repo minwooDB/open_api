@@ -1,6 +1,8 @@
 {% extends 'articles/base.html' %}
+{% load static %}
 
 {% block title %}detatil{% endblock %}
+
 
 {% block body %}
 <h1 class = 'text-center'>DETAIL</h1>
@@ -8,9 +10,38 @@
 <hr>
 <p>제목: {{article.title}}</p>
 <p>내용: {{article.content }}</p>
+{% if article.image %}
+<p>이미지 : <img src="{{article.image.url}}" alt="{{article.image}}"></p>
+{% else %}
+<p>이미지 : <img src="{% static 'articles/static/articles/images/no_image.jpg' %}" alt="no_image"></p>
+{% endif %}
 <p>작성시간: {{article.created_at}}</p>
 <p>작성시간: {{article.updated_at}}</p>
 <hr>
+
+<h3>댓글 목록 | 현재 댓글수 : {{comments|length}}</h3>
+{% for comment in comments %}
+
+<div>
+    <p style="display:inline;">{{comment.created_at}}</p>
+    <form action="{% url 'articles:comment_delete' article.id comment.id %}" 
+    onclick="return confirm('삭제 하시겠습니까?')" method="POST" style="display:inline;
+    text-align: center;">
+{% csrf_token %}
+<button class="btn btn-warning btn-sm">삭제하기</button>
+</form>
+    <p>{{comment.content}}</p>
+</div>
+
+{% empty %}
+<p>댓글이 없습니다.</p>
+{% endfor %}
+
+<form action="{% url 'articles:comment_create' article.id %}" method="POST">
+    {% csrf_token%}
+    댓글 입력 : <input type="text" name='content'>
+    <input type="submit" value="입력">  
+</form>
 <a href="/articles/">리스트로 가기</a>
 <a href="/articles/edit/{{ article.pk }}">수정하기</a>
 <form action="/articles/delete/{{ article.pk }}/" method="POST">
