@@ -1,0 +1,18 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}편집{% endblock %}
+
+{% block body %}
+    <h1 class='text-center'>내용 수정</h1>
+    <form action='' method = "POST">
+        {% csrf_token %}
+        제목:<input type= 'text' name= 'title' value= "{{Movie.title}}"><br>
+        누적관객수:<input type= 'text' name= 'audience' value= "{{Movie.title_en}}"><br>
+        개봉일자:<input type= 'date' name= 'open_date' value="{{Movie.open_date}}">{{Movie.open_date}}<br>
+        포스터링크:<input type= 'text' name= 'poster_url' value="{{Movie.poster_url}}"><br>
+        내용:<input type = 'textarea'  name= 'description' id = '' col= 30 low = 10 value="{{Movie.description}}"><br>
+        <input type = 'submit'>
+    </form>
+    <hr>
+    <a href='/articles/'>취소하기</a>
+{% endblock %}

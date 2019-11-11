@@ -1,0 +1,57 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}영화상세정보{% endblock %}
+
+{% block body %}
+    <h1 class = 'text-center'>영화상세정보</h1>
+    <h2>{{movie.title}}</h2>
+    <hr>
+    누적관객수:{{movie.audience}}<br>
+    장르:{{movie.genre}}<br>
+    평점:{{movie.socre}}<br>
+    영화소개:{{movie.poster_url}}<br>
+    내용:{{movie.description}}<br>
+    <hr>
+    <h3>댓글 목록 | 현재 댓글수 : {{scores|length}}</h3>
+
+    {% for score in scores %}
+
+    <div>
+        <p style="display:inline;">{{score.score}}</p>
+        <form action="{% url 'movies:score_delete' movie.id score.id %}" 
+        onclick="return confirm('삭제 하시겠습니까?')" method="POST" style="display:inline;
+        text-align: center;">
+        {% csrf_token %}
+        <button class="btn btn-warning btn-sm">삭제하기</button>
+        </form>
+        <p>{{score.content}}</p>
+    </div>
+
+    <form action="{% url 'movies:score_new' movie.pk %}" method = 'POST'>
+        {% csrf_token %}
+        한줄평: <input type="text" name='content'>
+        평점: <input type="number" name='score'>
+        <button class= 'btn btn-success' type = 'submit'>입력</button>
+    </form>
+    <a href="/movies/">리스트로 가기</a>
+    <a href="/movies/edit/{{ movie.pk }}">수정하기</a>
+
+    <a href="/movies/">목록</a>
+    <a href="/movies/edit/{{ movie.pk }}">수정</a>
+    <form action="/movies/delete/{{ movie.pk }}/" method="POST">
+    {% csrf_token %}
+    <button>삭제</button>
+    </form>
+   
+    <hr>
+    <h3>한줄평</h3><br>
+    <ul>
+        <li>한줄평: {{score.content}} / 평점{{score.score}} </li>
+
+    </ul>
+
+    {% empty %}
+    <p>댓글이 없습니다.</p>
+    
+    {% endfor %}
+    {% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}movie info create{% endblock %}
+
+{% block body %}
+    <h1 class='text-center'>NEW</h1>
+    <form action='' method = "POST">
+        {% csrf_token %}
+        제목:<input type= 'text' name= 'title'><br>
+        영어 제목:<input type= 'text' name= 'title_en'><br>
+        누적관객수:<input type= 'text' name= 'audience'><br>
+        개봉일자:<input type= 'text' name= 'open_date'><br>
+        장르:<input type= 'text' name= 'genre'><br>
+        관람등급"<input type="text" name = 'watch_grade'><br>
+        평점:<input type= 'text' name= 'score'><br>
+        영화소개:<input type= 'text' name= 'poster_url'><br>
+        내용:<input type = 'textarea'  name= 'description' id = '' col= 30 low = 10 ><br>
+        <input type = 'submit'>
+
+    </form>
+    <hr>
+    <a href='/movies/'>뒤로가기</a>
+{% endblock %}

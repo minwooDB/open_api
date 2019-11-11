@@ -1,0 +1,16 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}
+영화 정보
+{% endblock %}
+
+{% block body %}
+    <a href="/movies/new">새 영화 등록</a>
+    <hr>
+    {% for movie in movies %}
+    <a href="/movies/{{movie.pk}}">제목:{{movie.title}}</a>
+    <P>포스터</P>
+    <img src= "{{movie.poster_url}}">
+    <hr>
+    {% endfor %}
+{% endblock %}
