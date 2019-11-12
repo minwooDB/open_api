@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '4hguh85bykdu&l%)4qnw12!cvr9z^%33@_ynwgi9yc_6vmsj8i'
+SECRET_KEY = '4u@$s+t9s86g0f%u=e@cn+h-kryc5w44sv7nt20#jklrb-y80k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,17 +31,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'movies',
-    'peoples',
-    'students',
+    'accounts',
     'articles',
+    'students',
+    'jobs',
+    'movies',
+    'imagekit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'django_extensions',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -130,4 +134,3 @@ STATICFILES_DIRS = [    # 정적 파일이 위치한 경로
 
 MEDIA_URL = '/media/'   # STATIC_URL 과 비슷, 업로드된 파일의 주소(URL)을 만들어 줌(실제 이미지 파일이 업로드된 디렉토리를 의미하는 것은 아님)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    # STATICFILES_DIRS 동일한 기능, 정적 파일의 업로드가 끝나면 파일이 어디에 저장될 지를 설정하는 경로
-

@@ -1,54 +1,57 @@
 from django.shortcuts import render, redirect
-from .models import movie
+from .models import Movie
 
 def index(request):
-    #movie = movie.objects.order_by('open_date')
-    Movies = movie.objects.all()[::-1]
-    return render(request, 'movies/index.html', {'Movies':Movies})
+    # movies = Movie.objects.all()
+    movies = Movie.objects.order_by('-pk')
+    return render(request, 'movies/index.html', {'movies':movies})
 
-def new(request):
-    if request.method=='POST':
-        title = request.POST.get('title')
-        title_en = request.POST.get('title_en')
-        audience =  request.POST.get('audience')
-        open_date =  request.POST.get('open_date')
-        genre =  request.POST.get('genre')
-        watch_grade =  request.POST.get('watch_grade')
-        score =  request.POST.get('score')
-        poster_url = request.POST.get('poster_url')
-        description =  request.POST.get('description')
-        Movie = movie(title=title, title_en=title_en, audience=audience, open_date=open_date, genre=genre, 
-                    watch_grade=watch_grade, score=score, poster_url=poster_url, description=description)
-        Movie.save()
-        return redirect('/movies/')
-    else : 
-        return render(request,'movies/new.html')
+# def new(request):
+#     return render(request, 'movies/new.html')
+
+def create(request):
+    if request.method == 'POST':
+        movie = Movie()
+        movie.title = request.POST.get('title')
+        movie.title_en = request.POST.get('title_en')
+        movie.audience = request.POST.get('audience')
+        movie.open_date = request.POST.get('open_date')
+        movie.genre = request.POST.get('genre')
+        movie.watch_grade = request.POST.get('watch_grade')
+        movie.score = request.POST.get('score')
+        movie.poster_url = request.POST.get('poster_url')
+        movie.description = request.POST.get('description')
+        movie.save()
+        return redirect('movies:detail', movie.pk)
+    else:
+        return render(request, 'movies/new.html')
 
 def detail(request, pk):
-    Movie = movie.objects.get(pk=pk)
-    return render(request, 'movies/detail.html',{'Movie':Movie})
+    movie = Movie.objects.get(pk=pk)
+    return render(request, 'movies/detail.html', {'movie':movie})
 
-def edit(request, pk):
-    if request.method=='POST':
-        Movie = movie.objects.get(pk=pk)
-        Movie.title = request.POST.get('title')
-        Movie.title_en = request.POST.get('title_en')
-        Movie.audience =  request.POST.get('audience')
-        Movie.open_date =  request.POST.get('open_date')
-        Movie.genre =  request.POST.get('genre')
-        Movie.watch_grade =  request.POST.get('watch_grade')
-        Movie.score =  request.POST.get('score')
-        Movie.poster_url = request.POST.get('poster_url')
-        Movie.description =  request.POST.get('description')
-        Movie.save()
-        return redirect(f'/movies/{Movie.pk}')
+# def edit(request, pk):
+#     movie = Movie.objects.get(pk=pk)
+#     return render(request, 'movies/edit.html', {'movie':movie})
+
+def update(request, pk):
+    movie = Movie.objects.get(pk=pk)
+    if request.method == 'POST':
+        movie.title = request.POST.get('title')
+        movie.title_en = request.POST.get('title_en')
+        movie.audience = request.POST.get('audience')
+        movie.open_date = request.POST.get('open_date')
+        movie.genre = request.POST.get('genre')
+        movie.watch_grade = request.POST.get('watch_grade')
+        movie.score = request.POST.get('score')
+        movie.poster_url = request.POST.get('poster_url')
+        movie.description = request.POST.get('description')
+        movie.save()
+        return redirect('movies:detail', movie.pk)
     else:
-        Movie = movie.objects.get(pk=pk)
-        return render(request,'movies/edit.html',{'Movie':Movie})
+        return render(request, 'movies/edit.html', {'movie':movie})
 
-
-def delete(request,pk):
-    Movie = movie.objects.get(pk=pk)
-    Movie.delete()
-    return redirect("/movies/")
-
+def delete(request, pk):
+    movie = Movie.objects.get(pk=pk)
+    movie.delete()
+    return redirect('movies:index')
