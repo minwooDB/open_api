@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
 from .forms import UserCustomChangeForm
 from django.contrib.auth import update_session_auth_hash    # 비밀번호 변경시 session_auth_hash 정보를 update
@@ -7,7 +6,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 
 def signup(request):
-    if request.user.is_authenticated: #인증된 유저가 요청을 보낸 경우, 회원가입 페이지를 보여주지 않고 목록 페이지를 redirect
+    if request.user.is_authenticated:   # 인증된 유저가 요청을 보낸 경우, 회원가입 페이지를 보여주지 않고 목록 페이지로 redirect
         return redirect('articles:index')
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -17,12 +16,10 @@ def signup(request):
             return redirect('articles:index')
     else:
         form = UserCreationForm()
-       # return render(request, 'accounts/signup.html',{'form':form})
-        return render(request, 'accounts/auth_form.html', {'form':form})
-
+    return render(request, 'accounts/auth_form.html', {'form':form})
 
 def login(request):
-    if request.user.is_authenticated:#인증된 유저가 요청을 보낸 경우, 로그인 페이지를 보여주지 않고 목록 페이지를 redirect
+    if request.user.is_authenticated:   # 인증된 유저가 요청을 보낸 경우, 로그인 페이지를 보여주지 않고 목록 페이지로 redirect
         return redirect('articles:index')
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
@@ -31,7 +28,6 @@ def login(request):
             return redirect('articles:index')
     else:
         form = AuthenticationForm()
-        #return render(request, 'accounts/login.html',{'form':form})
         return render(request, 'accounts/auth_form.html', {'form':form})
 
 def logout(request):
@@ -43,8 +39,6 @@ def quit(request):
     if request.method == 'POST':
         request.user.delete()
     return redirect('articles:index')
-
-return redirect('articles:index')
 
 def edit(request):
     if request.method == 'POST':
@@ -65,4 +59,4 @@ def change_password(request):
             return redirect('articles:index')
     else:
         form = PasswordChangeForm(request.user)
-        return render(request, 'accounts/auth_form.html', {'form':form}) 
+        return render(request, 'accounts/auth_form.html', {'form':form})
